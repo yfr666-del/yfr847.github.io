@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>蜡笔小新 - 动漫图集</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .page-header {
+            background: linear-gradient(135deg, #4ECDC4, #45B7AA);
+            padding: 60px 0;
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+        }
+        
+        .page-header h1 {
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+        }
+        
+        .page-header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .gallery-categories {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 40px;
+        }
+        
+        .category-btn {
+            background-color: white;
+            border: 2px solid var(--secondary-color);
+            color: var(--dark-color);
+            padding: 10px 25px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+        
+        .category-btn:hover,
+        .category-btn.active {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+        
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 50px;
+        }
+        
+        .gallery-item {
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            background-color: white;
+            transition: var(--transition);
+            position: relative;
+        }
+        
+        .gallery-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .gallery-img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+        
+        .gallery-item:hover .gallery-img {
+            transform: scale(1.05);
+        }
+        
+        .gallery-info {
+            padding: 20px;
+        }
+        
+        .gallery-info h3 {
+            color: var(--dark-color);
+            margin-bottom: 10px;
+            font-size: 1.3rem;
+        }
+        
+        .gallery-info p {
+            color: var(--text-light);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+        
+        .gallery-tag {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: var(--dark-color);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            margin-top: 10px;
+            font-weight: 600;
+        }
+        
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 1001;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .lightbox.active {
+            display: flex;
+        }
+        
+        .lightbox-content {
+            max-width: 90%;
+            max-height: 90%;
+        }
+        
+        .lightbox-img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+        
+        .lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: white;
+            font-size: 2.5rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .lightbox-close:hover {
+            color: var(--accent-color);
+        }
+        
+        .lightbox-nav {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 20px;
+            transform: translateY(-50%);
+        }
+        
+        .lightbox-btn {
+            background-color: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .lightbox-btn:hover {
+            background-color: var(--primary-color);
+        }
+        
+        .gallery-stats {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 20px;
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .stat-item {
+            text-align: center;
+            padding: 15px;
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            font-weight: bold;
+            display: block;
+        }
+        
+        .stat-label {
+            color: var(--text-light);
+            font-size: 1rem;
+        }
+        
+        @media (max-width: 768px) {
+            .gallery-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+            
+            .lightbox-nav {
+                padding: 0 10px;
+            }
+            
+            .lightbox-btn {
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .category-btn {
+                padding: 8px 15px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <header class="main-header">
+        <div class="container">
+            <nav class="navbar">
+                <div class="logo">
+                    <h1><a href="../index.html">🖍️ 蜡笔小新世界</a></h1>
+                </div>
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="../index.html"><i class="fas fa-home"></i> 首页</a></li>
+                    <li><a href="character.html"><i class="fas fa-users"></i> 角色介绍</a></li>
+                    <li><a href="gallery.html" class="active"><i class="fas fa-images"></i> 动漫图集</a></li>
+                    <li><a href="story.html"><i class="fas fa-book"></i> 剧情世界</a></li>
+                    <li><a href="about.html"><i class="fas fa-user"></i> 关于我</a></li>
+                </ul>
+                <div class="hamburger" id="hamburger">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- 页面标题区域 -->
+    <header class="page-header">
+        <div class="container">
+            <h1>蜡笔小新动漫图集</h1>
+            <p>收藏经典画面、剧场版海报与精彩瞬间</p>
+        </div>
+    </header>
+    
+    <main class="container">
+        <!-- 图集统计 -->
+        <section class="gallery-stats">
+            <h2 class="section-title">图集统计</h2>
+            <p>本图库收录了蜡笔小新动画的经典画面，涵盖多个系列和剧场版</p>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <span class="stat-number">150+</span>
+                    <span class="stat-label">经典图片</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">5</span>
+                    <span class="stat-label">分类主题</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">30+</span>
+                    <span class="stat-label">剧场版画面</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">1992</span>
+                    <span class="stat-label">起收录年份</span>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 分类筛选 -->
+        <section class="gallery-filter">
+            <h2 class="section-title">图片分类</h2>
+            <div class="gallery-categories">
+                <button class="category-btn active" data-category="all">全部图片</button>
+                <button class="category-btn" data-category="daily">日常生活</button>
+                <button class="category-btn" data-category="movie">剧场版</button>
+                <button class="category-btn" data-category="family">野原一家</button>
+                <button class="category-btn" data-category="friends">春日部防卫队</button>
+                <button class="category-btn" data-category="funny">搞笑瞬间</button>
+            </div>
+        </section>
+        
+        <!-- 图片网格 -->
+        <section class="gallery-main">
+            <div class="gallery-grid" id="galleryGrid">
+                <!-- 图片1 -->
+                <div class="gallery-item" data-category="daily">
+                    <img src="../images/gallery/daily1.jpg" alt="小新吃点心" class="gallery-img">
+                    <div class="gallery-info">
+                        <h3>小熊饼干时间</h3>
+                        <p>小新最爱的点心时间，总是迫不及待地打开饼干盒</p>
+                        <span class="gallery-tag">日常生活</span>
+                    </div>
+                </div>
+                
+                <!-- 图片2 -->
+                <div class="gallery-item" data-category="family">
+                    <img src="../images/gallery/family1.jpg" alt="野原全家福" class="gallery-img">
+                    <div class="gallery-info">
+                        <h3>野原全家福</h3>
+                        <p>难得的全家合影，虽然小新总是不配合</p>
+                        <span class="gallery-tag">野原一家</span>
+                    </div>
+                </div>
+                
+                <!-- 图片3 -->
+                <div class="gallery-item" data-category="movie">
+                    <img src="../images/gallery/movie1.jpg" alt="动感超人" class="gallery-img">
+                    <div class="gallery-info">
+                        <h3>动感超人登场</h3>
+                        <p>小新心目中的英雄，总是及时出现拯救世界</p>
+                        <span class="gallery-tag">剧场版</span>
+                    </div>
+                </div>
+                
+                <!-- 图片4 -->
+                <div class="gallery-item" data-category="friends">
+                    <img src="../images/gallery/friends1.jpg" alt="春日部防卫队" class="gallery-img">
+                    <div class="gallery-info">
+                        <h3>春日部防卫队集合</h3>
+                        <p>小新、风间、正男、阿呆和妮妮的冒险小队</p>
+                        <span class="gallery-tag">春日部防卫队</span>
+                    </div>
+                </div>
+                
+                <!-- 图片5 -->
+                <div class="gallery-item" data-category="funny">
+                    <img src="../images/gallery/funny1.jpg" alt="小新跳舞" class="gallery-img">
+                    <div class="gallery-info">
+                        <h3>大象舞时间</h3>
+                        <p>小新的经典舞蹈，总是让人哭笑不得</p>
+                        <span class="gallery-tag">搞笑瞬间</span>
+                    </div>
+                </div>
+                
+                <!-- 图片6 -->
+                <div class="gallery-item" data-category="daily">
+                    <img src="../images/gallery/daily2.jpg" alt="美伢购物" class="gallery-img">
+                    <div class="gallery-info">
+                        <h3>超市大抢购</h3>
+                        <p>美伢最爱的特价抢购时间，总是满载而归</p>
+                        <span class="gallery-tag">日常生活</span>
+                    </div>
+                </div>
+                
+                <!-- 图片7 -->
+                <div class="gallery-item" data-category="movie">
+                    <img src="../images/gallery/movie2.jpg" alt="剧场版海报" class="gallery-img">
+                    <div class="gallery-info">
+                        <h3>战国大合战</h3>
+                        <p>蜡笔小新剧场版经典之作，穿越到战国时代</p>
+                        <span class="gallery-tag">剧场版</span>
+                    </div>
+                </div>
+                
+                <!-- 图片8 -->
+                <div class="gallery-item" data-category="family">
+                    <img src="../images/gallery/family2.jpg" alt="广志下班" class="gallery-img">
+                    <div class="gallery-info">
+                        <h3>爸爸回来了</h3>
+                        <p>广志下班回家，小新经典的"你回来了~"</p>
+                        <span class="gallery-tag">野原一家</span>
+                    </div>
+                </div>
+                
+                <!-- 图片9 -->
+                <div class="gallery-item" data-category="friends">
+                    <img src="../images/gallery/friends2.jpg" alt="妮妮的兔子" class="gallery-img">
+                    <div class="gallery-info">
+                        <h3>妮妮的兔子玩偶</h3>
+                        <p>妮妮生气时总会虐待的可怜兔子玩偶</p>
+                        <span class="gallery-tag">春日部防卫队</span>
+                    </div>
+                </div>
+                
+                <!-- 图片10 -->
+                <div class="gallery-item" data-category="funny">
+                    <img src="../images/gallery/funny2.jpg" alt="小新模仿" class="gallery-img">
+                    <div class="gallery-info">
+                        <h3>模仿妈妈</h3>
+                        <p>小新模仿美伢生气的样子，惟妙惟肖</p>
+                        <span class="gallery-tag">搞笑瞬间</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 温馨提示 -->
+        <section class="gallery-notice">
+            <div class="notice-box">
+                <h3><i class="fas fa-info-circle"></i> 图集说明</h3>
+                <p>本图集所有图片均来源于蜡笔小新动画截图、官方海报及粉丝创作，仅供学习交流使用。如需高清原图或商业用途，请通过正规渠道获取版权。</p>
+                <p>图片会持续更新，欢迎推荐经典画面！</p>
+            </div>
+        </section>
+    </main>
+    
+    <!-- 灯箱（大图查看） -->
+    <div class="lightbox" id="lightbox">
+        <span class="lightbox-close" id="lightboxClose">&times;</span>
+        <div class="lightbox-nav">
+            <button class="lightbox-btn" id="lightboxPrev"><i class="fas fa-chevron-left"></i></button>
+            <button class="lightbox-btn" id="lightboxNext"><i class="fas fa-chevron-right"></i></button>
+        </div>
+        <div class="lightbox-content">
+            <img src="" alt="" class="lightbox-img" id="lightboxImg">
+        </div>
+    </div>
+
+    <!-- 页脚 -->
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>蜡笔小新世界</h3>
+                    <p>一个由粉丝创建的蜡笔小新专题网站</p>
+                    <p>仅供学习交流使用，非商业用途</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>网站导航</h3>
+                    <ul class="footer-links">
+                        <li><a href="../index.html">首页</a></li>
+                        <li><a href="character.html">角色介绍</a></li>
+                        <li><a href="gallery.html">动漫图集</a></li>
+                        <li><a href="story.html">剧情世界</a></li>
+                        <li><a href="about.html">关于我</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>图集分类</h3>
+                    <ul class="footer-links">
+                        <li><a href="#" data-category="daily">日常生活</a></li>
+                        <li><a href="#" data-category="movie">剧场版</a></li>
+                        <li><a href="#" data-category="family">野原一家</a></li>
+                        <li><a href="#" data-category="friends">春日部防卫队</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>关注更新</h3>
+                    <div class="social-icons">
+                        <a href="#" class="social-icon"><i class="fab fa-github"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-weibo"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-qq"></i></a>
+                    </div>
+                    <p class="copyright">
+                        &copy; 2023 蜡笔小新主题网站<br>
+                        本网站内容基于蜡笔小新动漫创作，仅供学习交流使用
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/main.js"></script>
+    <script>
+        // 图集页面专用JavaScript
+        document.addEventListener('DOMContentLoaded', function() {
+            // 分类筛选功能
+            const categoryBtns = document.querySelectorAll('.category-btn');
+            const galleryItems = document.querySelectorAll('.gallery-item');
+            
+            categoryBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    // 移除所有按钮的active类
+                    categoryBtns.forEach(b => b.classList.remove('active'));
+                    // 给当前点击的按钮添加active类
+                    this.classList.add('active');
+                    
+                    const category = this.getAttribute('data-category');
+                    
+                    // 筛选显示对应的图片
+                    galleryItems.forEach(item => {
+                        if (category === 'all' || item.getAttribute('data-category') === category) {
+                            item.style.display = 'block';
+                            setTimeout(() => {
+                                item.style.opacity = '1';
+                                item.style.transform = 'translateY(0)';
+                            }, 10);
+                        } else {
+                            item.style.opacity = '0';
+                            item.style.transform = 'translateY(20px)';
+                            setTimeout(() => {
+                                item.style.display = 'none';
+                            }, 300);
+                        }
+                    });
+                });
+            });
+            
+            // 灯箱功能
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImg = document.getElementById('lightboxImg');
+            const lightboxClose = document.getElementById('lightboxClose');
+            const lightboxPrev = document.getElementById('lightboxPrev');
+            const lightboxNext = document.getElementById('lightboxNext');
+            const galleryImages = document.querySelectorAll('.gallery-img');
+            
+            let currentImageIndex = 0;
+            const imagesArray = Array.from(galleryImages);
+            
+            // 打开灯箱
+            galleryImages.forEach((img, index) => {
+                img.addEventListener('click', function() {
+                    currentImageIndex = index;
+                    lightboxImg.src = this.src;
+                    lightboxImg.alt = this.alt;
+                    lightbox.classList.add('active');
+                    document.body.style.overflow = 'hidden'; // 防止背景滚动
+                });
+            });
+            
+            // 关闭灯箱
+            lightboxClose.addEventListener('click', function() {
+                lightbox.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            });
+            
+            // 点击背景关闭灯箱
+            lightbox.addEventListener('click', function(e) {
+                if (e.target === lightbox) {
+                    lightbox.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                }
+            });
+            
+            // 上一张图片
+            lightboxPrev.addEventListener('click', function(e) {
+                e.stopPropagation();
+                currentImageIndex = (currentImageIndex - 1 + imagesArray.length) % imagesArray.length;
+                lightboxImg.src = imagesArray[currentImageIndex].src;
+                lightboxImg.alt = imagesArray[currentImageIndex].alt;
+            });
+            
+            // 下一张图片
+            lightboxNext.addEventListener('click', function(e) {
+                e.stopPropagation();
+                currentImageIndex = (currentImageIndex + 1) % imagesArray.length;
+                lightboxImg.src = imagesArray[currentImageIndex].src;
+                lightboxImg.alt = imagesArray[currentImageIndex].alt;
+            });
+            
+            // 键盘控制
+            document.addEventListener('keydown', function(e) {
+                if (!lightbox.classList.contains('active')) return;
+                
+                if (e.key === 'Escape') {
+                    lightbox.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                }
+                
+                if (e.key === 'ArrowLeft') {
+                    currentImageIndex = (currentImageIndex - 1 + imagesArray.length) % imagesArray.length;
+                    lightboxImg.src = imagesArray[currentImageIndex].src;
+                    lightboxImg.alt = imagesArray[currentImageIndex].alt;
+                }
+                
+                if (e.key === 'ArrowRight') {
+                    currentImageIndex = (currentImageIndex + 1) % imagesArray.length;
+                    lightboxImg.src = imagesArray[currentImageIndex].src;
+                    lightboxImg.alt = imagesArray[currentImageIndex].alt;
+                }
+            });
+            
+            // 页脚分类链接
+            const footerCategoryLinks = document.querySelectorAll('.footer-links a[data-category]');
+            footerCategoryLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const category = this.getAttribute('data-category');
+                    
+                    // 找到对应的分类按钮并触发点击
+                    categoryBtns.forEach(btn => {
+                        if (btn.getAttribute('data-category') === category) {
+                            btn.click();
+                            // 平滑滚动到图集区域
+                            document.querySelector('.gallery-filter').scrollIntoView({
+                                behavior: 'smooth'
+                            });
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>

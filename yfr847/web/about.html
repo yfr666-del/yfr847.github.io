@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>蜡笔小新 - 关于我</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .page-header {
+            background: linear-gradient(135deg, #FF6B6B, #FF5252);
+            padding: 60px 0;
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+        }
+        
+        .page-header h1 {
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+        }
+        
+        .page-header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .profile-section {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            margin-bottom: 60px;
+            flex-wrap: wrap;
+        }
+        
+        .profile-image {
+            flex: 1;
+            min-width: 300px;
+            text-align: center;
+        }
+        
+        .profile-img {
+            width: 250px;
+            height: 250px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid var(--accent-color);
+            box-shadow: var(--shadow);
+        }
+        
+        .profile-info {
+            flex: 2;
+            min-width: 300px;
+        }
+        
+        .profile-info h2 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-size: 2.2rem;
+        }
+        
+        .profile-tagline {
+            font-size: 1.3rem;
+            color: var(--secondary-color);
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+        
+        .profile-desc {
+            color: var(--text-light);
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+        
+        .profile-stats {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .stat-box {
+            background-color: white;
+            padding: 15px 25px;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            text-align: center;
+            min-width: 120px;
+        }
+        
+        .stat-number {
+            font-size: 2rem;
+            color: var(--primary-color);
+            font-weight: bold;
+            display: block;
+        }
+        
+        .stat-label {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+        
+        .passion-section {
+            margin-bottom: 60px;
+        }
+        
+        .passion-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+        
+        .passion-card {
+            background-color: white;
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+        
+        .passion-card:hover {
+            transform: translateY(-10px);
+            background-color: var(--accent-color);
+        }
+        
+        .passion-icon {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+        
+        .passion-card:hover .passion-icon {
+            color: var(--dark-color);
+        }
+        
+        .passion-card h3 {
+            margin-bottom: 15px;
+            color: var(--dark-color);
+        }
+        
+        .passion-card p {
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+        
+        .passion-card:hover p {
+            color: var(--dark-color);
+        }
+        
+        .website-story {
+            background-color: white;
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: var(--shadow);
+            margin-bottom: 60px;
+        }
+        
+        .story-timeline {
+            margin-top: 30px;
+            position: relative;
+            padding-left: 30px;
+        }
+        
+        .story-timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background-color: var(--secondary-color);
+        }
+        
+        .story-step {
+            position: relative;
+            margin-bottom: 30px;
+            padding-left: 30px;
+        }
+        
+        .story-step::before {
+            content: '';
+            position: absolute;
+            left: -9px;
+            top: 5px;
+            width: 15px;
+            height: 15px;
+            background-color: var(--secondary-color);
+            border-radius: 50%;
+        }
+        
+        .story-step h4 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            font-size: 1.3rem;
+        }
+        
+        .story-step p {
+            color: var(--text-light);
+            line-height: 1.7;
+        }
+        
+        .contact-section {
+            margin-bottom: 60px;
+        }
+        
+        .contact-form {
+            background-color: white;
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: var(--shadow);
+            margin-top: 30px;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--dark-color);
+            font-weight: 600;
+        }
+        
+        .form-input,
+        .form-textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #eee;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+        
+        .form-input:focus,
+        .form-textarea:focus {
+            outline: none;
+            border-color: var(--secondary-color);
+        }
+        
+        .form-textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+        
+        .submit-btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+        }
+        
+        .submit-btn:hover {
+            background-color: #FF5252;
+            transform: scale(1.05);
+        }
+        
+        .submit-btn i {
+            margin-right: 10px;
+        }
+        
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .contact-item {
+            background-color: white;
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            box-shadow: var(--shadow);
+        }
+        
+        .contact-icon {
+            font-size: 2rem;
+            color: var(--secondary-color);
+            margin-bottom: 15px;
+        }
+        
+        .contact-item h4 {
+            color: var(--dark-color);
+            margin-bottom: 10px;
+        }
+        
+        .contact-item p {
+            color: var(--text-light);
+        }
+        
+        .contact-item a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .contact-item a:hover {
+            text-decoration: underline;
+        }
+        
+        .favorite-quote {
+            background: linear-gradient(135deg, var(--dark-color), #3a3d5d);
+            color: white;
+            padding: 40px;
+            border-radius: 15px;
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .quote-icon {
+            font-size: 3rem;
+            color: var(--accent-color);
+            margin-bottom: 20px;
+        }
+        
+        .favorite-quote p {
+            font-size: 1.5rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            font-style: italic;
+        }
+        
+        .quote-source {
+            opacity: 0.8;
+            font-size: 1.1rem;
+        }
+        
+        .skills-section {
+            margin-bottom: 60px;
+        }
+        
+        .skills-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .skill-tag {
+            background-color: white;
+            padding: 10px 20px;
+            border-radius: 50px;
+            box-shadow: var(--shadow);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .skill-tag i {
+            color: var(--secondary-color);
+        }
+        
+        @media (max-width: 768px) {
+            .profile-section {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .profile-stats {
+                justify-content: center;
+            }
+            
+            .passion-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .contact-form {
+                padding: 25px;
+            }
+            
+            .contact-info {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .thank-you {
+            text-align: center;
+            padding: 40px;
+            background-color: #F0F9FF;
+            border-radius: 15px;
+            margin-top: 40px;
+        }
+        
+        .thank-you h3 {
+            color: var(--secondary-color);
+            margin-bottom: 15px;
+        }
+        
+        .thank-you p {
+            color: var(--text-light);
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <header class="main-header">
+        <div class="container">
+            <nav class="navbar">
+                <div class="logo">
+                    <h1><a href="../index.html">🖍️ 蜡笔小新世界</a></h1>
+                </div>
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="../index.html"><i class="fas fa-home"></i> 首页</a></li>
+                    <li><a href="character.html"><i class="fas fa-users"></i> 角色介绍</a></li>
+                    <li><a href="gallery.html"><i class="fas fa-images"></i> 动漫图集</a></li>
+                    <li><a href="story.html"><i class="fas fa-book"></i> 剧情世界</a></li>
+                    <li><a href="about.html" class="active"><i class="fas fa-user"></i> 关于我</a></li>
+                </ul>
+                <div class="hamburger" id="hamburger">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- 页面标题区域 -->
+    <header class="page-header">
+        <div class="container">
+            <h1>关于我与这个网站</h1>
+            <p>分享我对蜡笔小新的热爱，以及创建这个网站的故事</p>
+        </div>
+    </header>
+    
+    <main class="container">
+        <!-- 个人简介 -->
+        <section class="profile-section">
+            <div class="profile-image">
+                <img src="../images/about/profile.jpg" alt="我的照片" class="profile-img">
+                <h3>蜡笔小新超级粉丝</h3>
+                <p>网页设计与动漫爱好者</p>
+            </div>
+            
+            <div class="profile-info">
+                <h2>你好，我是蜡笔小新的忠实粉丝！</h2>
+                <div class="profile-tagline">用代码构建我对《蜡笔小新》的热爱</div>
+                <div class="profile-desc">
+                    <p>我从小就是《蜡笔小新》的忠实观众，这部陪伴我成长的动画不仅仅是一部搞笑作品，更是一部充满生活智慧和温暖的家庭剧。野原一家的日常生活让我看到了自己家庭的影子，小新的调皮、美伢的唠叨、广志的辛苦，都让我感到亲切而真实。</p>
+                    <p>作为一名网页设计爱好者和计算机专业的学生，我一直想为这部我深爱的作品创建一个专门的网站。这个网站是我对《蜡笔小新》的致敬，也是我练习网页设计技能的实践项目。</p>
+                </div>
+                
+                <div class="profile-stats">
+                    <div class="stat-box">
+                        <span class="stat-number">15+</span>
+                        <span class="stat-label">年粉丝资历</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-number">5</span>
+                        <span class="stat-label">网站页面</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-number">30+</span>
+                        <span class="stat-label">剧场版观看</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-number">∞</span>
+                        <span class="stat-label">对小新的喜爱</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 我的热情 -->
+        <section class="passion-section">
+            <h2 class="section-title">我的热情所在</h2>
+            <div class="passion-grid">
+                <div class="passion-card">
+                    <div class="passion-icon">
+                        <i class="fas fa-tv"></i>
+                    </div>
+                    <h3>动漫欣赏</h3>
+                    <p>从小观看《蜡笔小新》，每集必追，剧场版首映必看。喜欢分析角色成长和剧情发展。</p>
+                </div>
+                
+                <div class="passion-card">
+                    <div class="passion-icon">
+                        <i class="fas fa-laptop-code"></i>
+                    </div>
+                    <h3>网页设计</h3>
+                    <p>热爱前端开发，擅长HTML、CSS和JavaScript。享受将创意转化为现实网页的过程。</p>
+                </div>
+                
+                <div class="passion-card">
+                    <div class="passion-icon">
+                        <i class="fas fa-pencil-alt"></i>
+                    </div>
+                    <h3>内容创作</h3>
+                    <p>喜欢撰写动漫分析文章，分享对作品的见解。这个网站的所有内容都由我亲自编写。</p>
+                </div>
+                
+                <div class="passion-card">
+                    <div class="passion-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>粉丝社区</h3>
+                    <p>积极参与蜡笔小新粉丝社群，与其他粉丝交流观点，分享资源，组织观看活动。</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 网站故事 -->
+        <section class="website-story">
+            <h2 class="section-title">这个网站的故事</h2>
+            <div class="story-timeline">
+                <div class="story-step">
+                    <h4>创意的萌芽</h4>
+                    <p>2023年初，我在学习网页设计课程时，老师布置了创建个人网站的任务。我立刻想到为我最爱的《蜡笔小新》创建一个专题网站，这既能完成作业，又能表达我的热爱。</p>
+                </div>
+                
+                <div class="story-step">
+                    <h4>设计与规划</h4>
+                    <p>我花了数周时间规划网站结构，决定包含五个核心页面：首页、角色介绍、动漫图集、剧情世界和关于我。每个页面都要有独特的风格，同时保持整体一致性。</p>
+                </div>
+                
+                <div class="story-step">
+                    <h4>内容收集</h4>
+                    <p>我重新观看了许多经典剧集，截图保存精彩画面。阅读了大量关于《蜡笔小新》的背景资料，包括作者臼井仪人的生平和创作故事。</p>
+                </div>
+                
+                <div class="story-step">
+                    <h4>编码实现</h4>
+                    <p>使用HTML5、CSS3和JavaScript构建网站。特别注重响应式设计，确保在手机、平板和电脑上都有良好的浏览体验。添加了轮播图、灯箱、时间线等交互功能。</p>
+                </div>
+                
+                <div class="story-step">
+                    <h4>测试与优化</h4>
+                    <p>邀请朋友测试网站，收集反馈并进行优化。调整颜色方案，改进导航体验，确保所有链接正常工作。</p>
+                </div>
+                
+                <div class="story-step">
+                    <h4>发布与分享</h4>
+                    <p>将网站部署到GitHub Pages，与其他蜡笔小新粉丝分享。收到了许多积极的反馈，这让我更加坚定了维护和更新这个网站的决心。</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 我的技能 -->
+        <section class="skills-section">
+            <h2 class="section-title">网站制作技能</h2>
+            <div class="skills-container">
+                <div class="skill-tag">
+                    <i class="fab fa-html5"></i>
+                    <span>HTML5</span>
+                </div>
+                <div class="skill-tag">
+                    <i class="fab fa-css3-alt"></i>
+                    <span>CSS3</span>
+                </div>
+                <div class="skill-tag">
+                    <i class="fab fa-js"></i>
+                    <span>JavaScript</span>
+                </div>
+                <div class="skill-tag">
+                    <i class="fas fa-mobile-alt"></i>
+                    <span>响应式设计</span>
+                </div>
+                <div class="skill-tag">
+                    <i class="fas fa-paint-brush"></i>
+                    <span>UI/UX设计</span>
+                </div>
+                <div class="skill-tag">
+                    <i class="fab fa-git-alt"></i>
+                    <span>Git版本控制</span>
+                </div>
+                <div class="skill-tag">
+                    <i class="fas fa-search"></i>
+                    <span>用户体验研究</span>
+                </div>
+                <div class="skill-tag">
+                    <i class="fas fa-photo-video"></i>
+                    <span>内容创作</span>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 我最爱的语录 -->
+        <section class="favorite-quote">
+            <div class="quote-icon">
+                <i class="fas fa-quote-right"></i>
+            </div>
+            <p>"我认为《蜡笔小新》最了不起的地方在于，它用最轻松幽默的方式，讲述了最真实沉重的生活。"</p>
+            <div class="quote-source">—— 我对蜡笔小新的评价</div>
+        </section>
+        
+        <!-- 联系我 -->
+        <section class="contact-section">
+            <h2 class="section-title">联系我</h2>
+            <div class="contact-form">
+                <form id="contactForm">
+                    <div class="form-group">
+                        <label for="name" class="form-label">姓名</label>
+                        <input type="text" id="name" class="form-input" placeholder="请输入您的姓名" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email" class="form-label">电子邮箱</label>
+                        <input type="email" id="email" class="form-input" placeholder="请输入您的电子邮箱" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="subject" class="form-label">主题</label>
+                        <input type="text" id="subject" class="form-input" placeholder="请简要说明您的来意" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="message" class="form-label">留言内容</label>
+                        <textarea id="message" class="form-textarea" placeholder="请详细描述您想交流的内容..."></textarea>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn">
+                        <i class="fas fa-paper-plane"></i> 发送留言
+                    </button>
+                </form>
+            </div>
+            
+            <div class="contact-info">
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <h4>电子邮件</h4>
+                    <p><a href="mailto:contact@shinchanfan.site">contact@shinchanfan.site</a></p>
+                </div>
+                
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fab fa-github"></i>
+                    </div>
+                    <h4>GitHub</h4>
+                    <p><a href="https://github.com/shinchanfan" target="_blank">github.com/shinchanfan</a></p>
+                </div>
+                
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fab fa-weibo"></i>
+                    </div>
+                    <h4>微博</h4>
+                    <p><a href="#" target="_blank">@蜡笔小新主题站</a></p>
+                </div>
+                
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <h4>粉丝交流</h4>
+                    <p>欢迎分享你对蜡笔小新的热爱</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 感谢 -->
+        <section class="thank-you">
+            <h3>感谢您的访问！</h3>
+            <p>这个网站是我用心制作的成果，希望能为同样热爱《蜡笔小新》的朋友们提供一个交流和分享的平台。如果你有任何建议、意见，或者发现了网站的任何问题，欢迎通过上面的联系方式与我联系。我会继续更新和完善这个网站，添加更多有趣的内容。</p>
+            <p>最后，向臼井仪人老师致敬，感谢他创造了这部陪伴我们成长的作品。</p>
+        </section>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>关于这个网站</h3>
+                    <p>由一位蜡笔小新超级粉丝创建</p>
+                    <p>非官方、非商业粉丝网站</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>网站制作信息</h3>
+                    <ul class="footer-links">
+                        <li>使用HTML5 & CSS3构建</li>
+                        <li>响应式设计</li>
+                        <li>GitHub Pages托管</li>
+                        <li>持续更新中</li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>技术栈</h3>
+                    <ul class="footer-links">
+                        <li>HTML5</li>
+                        <li>CSS3 (Flexbox/Grid)</li>
+                        <li>JavaScript (ES6+)</li>
+                        <li>Font Awesome图标</li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>致谢</h3>
+                    <div class="social-icons">
+                        <a href="#" class="social-icon"><i class="fas fa-heart"></i></a>
+                        <a href="#" class="social-icon"><i class="fas fa-star"></i></a>
+                        <a href="#" class="social-icon"><i class="fas fa-share-alt"></i></a>
+                    </div>
+                    <p class="copyright">
+                        &copy; 2023 蜡笔小新主题网站<br>
+                        谨以此站致敬臼井仪人老师<br>
+                        本网站为粉丝创作，仅供学习交流
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/main.js"></script>
+    <script>
+        // 关于我页面专用JavaScript
+        document.addEventListener('DOMContentLoaded', function() {
+            // 联系表单处理
+            const contactForm = document.getElementById('contactForm');
+            
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // 获取表单数据
+                const formData = {
+                    name: document.getElementById('name').value,
+                    email: document.getElementById('email').value,
+                    subject: document.getElementById('subject').value,
+                    message: document.getElementById('message').value
+                };
+                
+                // 简单验证
+                if (!formData.name || !formData.email || !formData.subject) {
+                    alert('请填写所有必填字段！');
+                    return;
+                }
+                
+                // 在实际应用中，这里应该发送数据到服务器
+                // 这里我们只是模拟发送成功
+                
+                // 显示成功消息
+                const submitBtn = contactForm.querySelector('.submit-btn');
+                const originalText = submitBtn.innerHTML;
+                
+                submitBtn.innerHTML = '<i class="fas fa-check"></i> 发送成功！';
+                submitBtn.style.backgroundColor = '#4CAF50';
+                
+                // 3秒后恢复原状
+                setTimeout(() => {
+                    submitBtn.innerHTML = originalText;
+                    submitBtn.style.backgroundColor = '';
+                    
+                    // 清空表单
+                    contactForm.reset();
+                }, 3000);
+                
+                // 在实际应用中，这里可以添加AJAX请求
+                console.log('表单数据:', formData);
+            });
+            
+            // 技能标签动画
+            const skillTags = document.querySelectorAll('.skill-tag');
+            
+            skillTags.forEach((tag, index) => {
+                // 设置初始状态
+                tag.style.opacity = '0';
+                tag.style.transform = 'translateY(20px)';
+                
+                // 延迟显示，创建波浪效果
+                setTimeout(() => {
+                    tag.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                    tag.style.opacity = '1';
+                    tag.style.transform = 'translateY(0)';
+                }, 100 * index);
+            });
+            
+            // 热情卡片悬停效果
+            const passionCards = document.querySelectorAll('.passion-card');
+            
+            passionCards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-10px) scale(1.03)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(-10px)';
+                });
+            });
+            
+            // 故事时间线动画
+            const storySteps = document.querySelectorAll('.story-step');
+            
+            const storyObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateX(0)';
+                    }
+                });
+            }, { threshold: 0.2 });
+            
+            storySteps.forEach(step => {
+                step.style.opacity = '0';
+                step.style.transform = 'translateX(-20px)';
+                step.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                storyObserver.observe(step);
+            });
+            
+            // 页面加载时的欢迎效果
+            setTimeout(() => {
+                const profileImg = document.querySelector('.profile-img');
+                profileImg.style.transform = 'scale(1.05)';
+                profileImg.style.boxShadow = '0 10px 30px rgba(0, 0, 0, 0.2)';
+                
+                setTimeout(() => {
+                    profileImg.style.transform = 'scale(1)';
+                    profileImg.style.transition = 'transform 0.5s ease, box-shadow 0.5s ease';
+                }, 500);
+            }, 1000);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>蜡笔小新主题网站 - 首页</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- 导航栏 -->
+    <header class="main-header">
+        <div class="container">
+            <nav class="navbar">
+                <div class="logo">
+                    <h1><a href="index.html">🖍️ 蜡笔小新世界</a></h1>
+                </div>
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="index.html" class="active"><i class="fas fa-home"></i> 首页</a></li>
+                    <li><a href="web/character.html"><i class="fas fa-users"></i> 角色介绍</a></li>
+                    <li><a href="web/gallery.html"><i class="fas fa-images"></i> 动漫图集</a></li>
+                    <li><a href="web/story.html"><i class="fas fa-book"></i> 剧情世界</a></li>
+                    <li><a href="web/about.html"><i class="fas fa-user"></i> 关于我</a></li>
+                </ul>
+                <div class="hamburger" id="hamburger">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- 轮播图区域 -->
+    <section class="hero-slider">
+        <div class="slider-container">
+            <div class="slider">
+                <div class="slide active">
+                    <img src="images/banner1.jpg" alt="蜡笔小新经典场景">
+                    <div class="slide-content">
+                        <h2>欢迎来到野原一家的世界</h2>
+                        <p>一起探索蜡笔小新的欢乐日常</p>
+                    </div>
+                </div>
+                <div class="slide">
+                    <img src="images/banner2.jpg" alt="春日部防卫队">
+                    <div class="slide-content">
+                        <h2>春日部防卫队集合！</h2>
+                        <p>与风间、正男、阿呆、妮妮一起冒险</p>
+                    </div>
+                </div>
+                <div class="slide">
+                    <img src="images/banner3.jpg" alt="野原一家">
+                    <div class="slide-content">
+                        <h2>野原一家的温馨日常</h2>
+                        <p>爸爸、妈妈、小新和小葵的幸福生活</p>
+                    </div>
+                </div>
+            </div>
+            <button class="slider-btn prev-btn" id="prevBtn">&#10094;</button>
+            <button class="slider-btn next-btn" id="nextBtn">&#10095;</button>
+            <div class="slider-dots" id="sliderDots"></div>
+        </div>
+    </section>
+
+    <!-- 主要内容区域 -->
+    <main class="container">
+        <section class="intro-section">
+            <h2 class="section-title">关于蜡笔小新</h2>
+            <div class="intro-content">
+                <div class="intro-text">
+                    <p>《蜡笔小新》是由日本漫画家臼井仪人创作的漫画作品，讲述的是5岁男孩野原新之助与家人、朋友在春日部的日常生活故事。</p>
+                    <p>这部作品自1990年连载以来，以其独特的幽默风格和深刻的生活洞察力，赢得了全球无数观众的喜爱。</p>
+                    <p>本网站是我为网页设计课程创建的专题网站，旨在展示我对这部经典动漫的热爱，并练习网页设计与开发技能。</p>
+                </div>
+                <div class="intro-image">
+                    <img src="images/shinnosuke.jpg" alt="野原新之助">
+                </div>
+            </div>
+        </section>
+
+        <section class="features-section">
+            <h2 class="section-title">网站特色内容</h2>
+            <div class="features-grid">
+                <a href="web/character.html" class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-user-friends"></i>
+                    </div>
+                    <h3>角色大全</h3>
+                    <p>详细介绍蜡笔小新中的所有主要角色，包括野原一家、春日部防卫队等。</p>
+                </a>
+                
+                <a href="web/gallery.html" class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-photo-video"></i>
+                    </div>
+                    <h3>经典图集</h3>
+                    <p>收集蜡笔小新的经典画面、剧场版海报和同人作品展示。</p>
+                </a>
+                
+                <a href="web/story.html" class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-film"></i>
+                    </div>
+                    <h3>剧情解析</h3>
+                    <p>深入分析经典剧集、剧场版剧情和作品背后的深刻含义。</p>
+                </a>
+                
+                <a href="web/about.html" class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <h3>关于作者</h3>
+                    <p>了解我创建这个网站的初衷以及我与蜡笔小新的故事。</p>
+                </a>
+            </div>
+        </section>
+        
+        <section class="quick-links">
+            <h2 class="section-title">快速导航</h2>
+            <div class="links-container">
+                <a href="web/character.html" class="link-btn">👨‍👩‍👧‍👦 查看角色介绍</a>
+                <a href="web/gallery.html" class="link-btn">🖼️ 浏览动漫图集</a>
+                <a href="web/story.html" class="link-btn">📖 阅读剧情分析</a>
+                <a href="web/about.html" class="link-btn">👤 了解网站作者</a>
+            </div>
+        </section>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>蜡笔小新世界</h3>
+                    <p>一个由粉丝创建的蜡笔小新专题网站</p>
+                    <p>仅供学习交流使用，非商业用途</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>网站导航</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">首页</a></li>
+                        <li><a href="web/character.html">角色介绍</a></li>
+                        <li><a href="web/gallery.html">动漫图集</a></li>
+                        <li><a href="web/story.html">剧情世界</a></li>
+                        <li><a href="web/about.html">关于我</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>作业要求链接</h3>
+                    <ul class="footer-links">
+                        <li><a href="../../index.html">返回班级主页</a></li>
+                        <li><a href="../index.html">返回寝室主页</a></li>
+                        <li><a href="web/about.html#contact">联系我</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>关注我</h3>
+                    <div class="social-icons">
+                        <a href="#" class="social-icon"><i class="fab fa-github"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-weibo"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-qq"></i></a>
+                    </div>
+                    <p class="copyright">
+                        &copy; 2023 蜡笔小新主题网站 | 网页设计课程作业<br>
+                        本网站内容基于蜡笔小新动漫创作，仅供学习交流使用
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>

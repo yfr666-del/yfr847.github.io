@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>蜡笔小新 - 剧情世界</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .page-header {
+            background: linear-gradient(135deg, #FFD166, #FFC145);
+            padding: 60px 0;
+            text-align: center;
+            color: var(--dark-color);
+            margin-bottom: 40px;
+        }
+        
+        .page-header h1 {
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+        }
+        
+        .page-header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .story-timeline {
+            position: relative;
+            max-width: 900px;
+            margin: 0 auto 60px;
+            padding: 20px 0;
+        }
+        
+        .story-timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background-color: var(--accent-color);
+            transform: translateX(-50%);
+        }
+        
+        .timeline-item {
+            position: relative;
+            margin-bottom: 40px;
+            width: 50%;
+            padding: 0 40px;
+        }
+        
+        .timeline-item:nth-child(odd) {
+            left: 0;
+        }
+        
+        .timeline-item:nth-child(even) {
+            left: 50%;
+        }
+        
+        .timeline-content {
+            background-color: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: var(--shadow);
+            position: relative;
+        }
+        
+        .timeline-item:nth-child(odd) .timeline-content::after {
+            content: '';
+            position: absolute;
+            right: -10px;
+            top: 30px;
+            width: 0;
+            height: 0;
+            border-top: 10px solid transparent;
+            border-bottom: 10px solid transparent;
+            border-left: 10px solid white;
+        }
+        
+        .timeline-item:nth-child(even) .timeline-content::after {
+            content: '';
+            position: absolute;
+            left: -10px;
+            top: 30px;
+            width: 0;
+            height: 0;
+            border-top: 10px solid transparent;
+            border-bottom: 10px solid transparent;
+            border-right: 10px solid white;
+        }
+        
+        .timeline-year {
+            position: absolute;
+            top: 15px;
+            width: 80px;
+            height: 80px;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.3rem;
+            box-shadow: var(--shadow);
+        }
+        
+        .timeline-item:nth-child(odd) .timeline-year {
+            right: -40px;
+        }
+        
+        .timeline-item:nth-child(even) .timeline-year {
+            left: -40px;
+        }
+        
+        .timeline-content h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+        
+        .timeline-content p {
+            color: var(--text-light);
+            line-height: 1.7;
+            margin-bottom: 15px;
+        }
+        
+        .timeline-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .timeline-tag {
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+        }
+        
+        .movie-section {
+            margin-bottom: 60px;
+        }
+        
+        .movie-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+        
+        .movie-card {
+            background-color: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+        
+        .movie-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .movie-poster {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+        }
+        
+        .movie-info {
+            padding: 20px;
+        }
+        
+        .movie-info h3 {
+            color: var(--dark-color);
+            margin-bottom: 10px;
+            font-size: 1.4rem;
+        }
+        
+        .movie-year {
+            color: var(--primary-color);
+            font-weight: 600;
+            margin-bottom: 10px;
+            display: block;
+        }
+        
+        .movie-desc {
+            color: var(--text-light);
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+        
+        .movie-rating {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .rating-stars {
+            color: #FFD166;
+            margin-right: 10px;
+        }
+        
+        .rating-value {
+            color: var(--text-light);
+            font-weight: 600;
+        }
+        
+        .classic-episodes {
+            background-color: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: var(--shadow);
+            margin-bottom: 60px;
+        }
+        
+        .episode-list {
+            margin-top: 20px;
+        }
+        
+        .episode-item {
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .episode-item:last-child {
+            border-bottom: none;
+        }
+        
+        .episode-title {
+            font-weight: 600;
+            color: var(--dark-color);
+        }
+        
+        .episode-desc {
+            color: var(--text-light);
+            font-size: 0.95rem;
+            margin-top: 5px;
+        }
+        
+        .episode-number {
+            background-color: var(--accent-color);
+            color: var(--dark-color);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-weight: 600;
+            min-width: 70px;
+            text-align: center;
+        }
+        
+        .quote-section {
+            background: linear-gradient(135deg, var(--dark-color), #3a3d5d);
+            color: white;
+            padding: 50px 30px;
+            border-radius: 15px;
+            margin-bottom: 60px;
+            text-align: center;
+        }
+        
+        .quote-text {
+            font-size: 1.8rem;
+            font-style: italic;
+            margin-bottom: 30px;
+            line-height: 1.6;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .quote-author {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .quote-author::before {
+            content: "—— ";
+        }
+        
+        @media (max-width: 768px) {
+            .story-timeline::before {
+                left: 30px;
+            }
+            
+            .timeline-item {
+                width: 100%;
+                left: 0 !important;
+                padding-left: 70px;
+                padding-right: 20px;
+            }
+            
+            .timeline-year {
+                left: 0 !important;
+                right: auto !important;
+                width: 60px;
+                height: 60px;
+                font-size: 1.1rem;
+            }
+            
+            .timeline-content::after {
+                display: none;
+            }
+            
+            .movie-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .quote-text {
+                font-size: 1.5rem;
+            }
+        }
+        
+        .story-highlight {
+            background-color: #F0F9FF;
+            border-left: 4px solid var(--secondary-color);
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 0 10px 10px 0;
+        }
+        
+        .highlight-title {
+            color: var(--secondary-color);
+            font-weight: bold;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .highlight-title i {
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <header class="main-header">
+        <div class="container">
+            <nav class="navbar">
+                <div class="logo">
+                    <h1><a href="../index.html">🖍️ 蜡笔小新世界</a></h1>
+                </div>
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="../index.html"><i class="fas fa-home"></i> 首页</a></li>
+                    <li><a href="character.html"><i class="fas fa-users"></i> 角色介绍</a></li>
+                    <li><a href="gallery.html"><i class="fas fa-images"></i> 动漫图集</a></li>
+                    <li><a href="story.html" class="active"><i class="fas fa-book"></i> 剧情世界</a></li>
+                    <li><a href="about.html"><i class="fas fa-user"></i> 关于我</a></li>
+                </ul>
+                <div class="hamburger" id="hamburger">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- 页面标题区域 -->
+    <header class="page-header">
+        <div class="container">
+            <h1>蜡笔小新剧情世界</h1>
+            <p>探索动画背后的故事、经典剧集与剧场版传奇</p>
+        </div>
+    </header>
+    
+    <main class="container">
+        <!-- 创作背景 -->
+        <section class="creation-section">
+            <h2 class="section-title">创作背景</h2>
+            <div class="intro-content">
+                <div class="intro-text">
+                    <p>《蜡笔小新》是日本漫画家臼井仪人于1990年开始连载的漫画作品，以5岁男孩野原新之助的日常生活为主题。这部作品最初定位为成人漫画，因为其中包含了大量黑色幽默和社会讽刺。</p>
+                    
+                    <div class="story-highlight">
+                        <div class="highlight-title"><i class="fas fa-lightbulb"></i> 有趣的事实</div>
+                        <p>主角野原新之助的名字来源于臼井仪人最初设定的主角名字"新之助"，而"野原"这个姓氏则是在连载开始前最后一刻决定的。</p>
+                    </div>
+                    
+                    <p>1992年，漫画被改编成电视动画，至今已播出超过1000集。动画版在保留原作幽默风格的同时，适当减少了成人内容，使其成为适合全家观看的作品。</p>
+                    
+                    <p>尽管臼井仪人于2009年不幸去世，但《蜡笔小新》的创作并未停止。由他的助手和团队继续创作，保持了作品的连贯性和原有风格。</p>
+                </div>
+                <div class="intro-image">
+                    <img src="../images/story/creation.jpg" alt="臼井仪人与蜡笔小新">
+                </div>
+            </div>
+        </section>
+        
+        <!-- 发展历程时间线 -->
+        <section class="timeline-section">
+            <h2 class="section-title">发展历程</h2>
+            <div class="story-timeline">
+                <!-- 1990年 -->
+                <div class="timeline-item">
+                    <div class="timeline-year">1990</div>
+                    <div class="timeline-content">
+                        <h3>漫画开始连载</h3>
+                        <p>臼井仪人的《蜡笔小新》在周刊《漫画Action》开始连载，初期定位为成人漫画，以独特的黑色幽默迅速获得关注。</p>
+                        <div class="timeline-tags">
+                            <span class="timeline-tag">漫画开始</span>
+                            <span class="timeline-tag">臼井仪人</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 1992年 -->
+                <div class="timeline-item">
+                    <div class="timeline-year">1992</div>
+                    <div class="timeline-content">
+                        <h3>电视动画化</h3>
+                        <p>第一部《蜡笔小新》电视动画播出，迅速成为日本最受欢迎的动画之一。动画版调整了部分成人内容，使其更适合全家观看。</p>
+                        <div class="timeline-tags">
+                            <span class="timeline-tag">动画开播</span>
+                            <span class="timeline-tag">电视版</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 1993年 -->
+                <div class="timeline-item">
+                    <div class="timeline-year">1993</div>
+                    <div class="timeline-content">
+                        <h3>首部剧场版上映</h3>
+                        <p>第一部剧场版《动感超人vs高叉魔王》上映，开启了每年一部剧场版的传统。剧场版通常有更完整的剧情和更高的制作质量。</p>
+                        <div class="timeline-tags">
+                            <span class="timeline-tag">剧场版</span>
+                            <span class="timeline-tag">动感超人</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 2009年 -->
+                <div class="timeline-item">
+                    <div class="timeline-year">2009</div>
+                    <div class="timeline-content">
+                        <h3>臼井仪人去世</h3>
+                        <p>原作者臼井仪人因登山事故不幸去世，享年51岁。他的离世让全世界的粉丝感到震惊和悲痛。</p>
+                        <div class="timeline-tags">
+                            <span class="timeline-tag">作者去世</span>
+                            <span class="timeline-tag">哀悼</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 2010年 -->
+                <div class="timeline-item">
+                    <div class="timeline-year">2010</div>
+                    <div class="timeline-content">
+                        <h3>团队继续创作</h3>
+                        <p>由臼井仪人的助手和团队"臼井仪人&UY工作室"继续创作《蜡笔小新》，保持了作品的连贯性和风格。</p>
+                        <div class="timeline-tags">
+                            <span class="timeline-tag">团队接手</span>
+                            <span class="timeline-tag">延续创作</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 2020年 -->
+                <div class="timeline-item">
+                    <div class="timeline-year">2020</div>
+                    <div class="timeline-content">
+                        <h3>播出30周年</h3>
+                        <p>《蜡笔小新》迎来动画播出30周年纪念，举办了多种庆祝活动，证明了这部作品的持久魅力。</p>
+                        <div class="timeline-tags">
+                            <span class="timeline-tag">30周年</span>
+                            <span class="timeline-tag">纪念</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 经典剧场版 -->
+        <section class="movie-section">
+            <h2 class="section-title">经典剧场版推荐</h2>
+            <div class="movie-grid">
+                <!-- 剧场版1 -->
+                <div class="movie-card">
+                    <img src="../images/story/movie1.jpg" alt="战国大合战" class="movie-poster">
+                    <div class="movie-info">
+                        <h3>战国大合战</h3>
+                        <span class="movie-year">2002年</span>
+                        <p class="movie-desc">小新意外穿越到战国时代，见证了一段凄美的爱情故事。被誉为蜡笔小新剧场版的巅峰之作。</p>
+                        <div class="movie-rating">
+                            <div class="rating-stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <span class="rating-value">9.3/10</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 剧场版2 -->
+                <div class="movie-card">
+                    <img src="../images/story/movie2.jpg" alt="大人帝国的反击" class="movie-poster">
+                    <div class="movie-info">
+                        <h3>大人帝国的反击</h3>
+                        <span class="movie-year">2001年</span>
+                        <p class="movie-desc">一个神秘组织让所有大人都沉迷于怀旧，只有孩子们保持清醒。小新必须拯救被困在过去的父母。</p>
+                        <div class="movie-rating">
+                            <div class="rating-stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                            <span class="rating-value">9.1/10</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 剧场版3 -->
+                <div class="movie-card">
+                    <img src="../images/story/movie3.jpg" alt="夕阳下的春日部男孩" class="movie-poster">
+                    <div class="movie-info">
+                        <h3>夕阳下的春日部男孩</h3>
+                        <span class="movie-year">2004年</span>
+                        <p class="movie-desc">小新和朋友们意外进入一个西部电影般的世界，在那里他们必须帮助村民对抗邪恶的警长。</p>
+                        <div class="movie-rating">
+                            <div class="rating-stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </div>
+                            <span class="rating-value">8.8/10</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 经典剧集 -->
+        <section class="classic-episodes">
+            <h2 class="section-title">经典电视剧集</h2>
+            <div class="episode-list">
+                <div class="episode-item">
+                    <div>
+                        <div class="episode-title">小白的报恩</div>
+                        <div class="episode-desc">小新从雨中救回流浪狗小白，开始了一段特殊的友谊</div>
+                    </div>
+                    <div class="episode-number">第1集</div>
+                </div>
+                
+                <div class="episode-item">
+                    <div>
+                        <div class="episode-title">妈妈减肥记</div>
+                        <div class="episode-desc">美伢尝试各种减肥方法，结果总是以失败告终</div>
+                    </div>
+                    <div class="episode-number">第24集</div>
+                </div>
+                
+                <div class="episode-item">
+                    <div>
+                        <div class="episode-title">爸爸的臭袜子</div>
+                        <div class="episode-desc">广志的臭袜子成为家里的一大难题，甚至能熏晕蚊子</div>
+                    </div>
+                    <div class="episode-number">第87集</div>
+                </div>
+                
+                <div class="episode-item">
+                    <div>
+                        <div class="episode-title">幼稚园运动会</div>
+                        <div class="episode-desc">双叶幼儿园举行运动会，小新又闹出各种笑话</div>
+                    </div>
+                    <div class="episode-number">第156集</div>
+                </div>
+                
+                <div class="episode-item">
+                    <div>
+                        <div class="episode-title">野原家停电夜</div>
+                        <div class="episode-desc">暴风雨导致停电，野原一家在烛光下分享故事</div>
+                    </div>
+                    <div class="episode-number">第342集</div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 经典语录 -->
+        <section class="quote-section">
+            <div class="quote-text">
+                "人生就是这样，有欢笑也有泪水。一部分人主要负责欢笑，另一部分人主要负责泪水。"
+            </div>
+            <div class="quote-author">野原广志</div>
+        </section>
+        
+        <!-- 作品影响 -->
+        <section class="impact-section">
+            <h2 class="section-title">作品影响与文化意义</h2>
+            <div class="impact-content">
+                <p>《蜡笔小新》不仅仅是一部搞笑动画，它通过一个5岁男孩的视角，反映了当代日本家庭生活的方方面面。作品中包含了丰富的家庭教育、亲子关系、社会现象等内容。</p>
+                
+                <div class="story-highlight">
+                    <div class="highlight-title"><i class="fas fa-award"></i> 社会影响</div>
+                    <p>蜡笔小新的流行甚至影响了现实生活中的育儿观念和家庭互动方式，许多家长从中看到了自己家庭的影子。</p>
+                </div>
+                
+                <p>作品中的许多台词和情节已经成为流行文化的一部分，被广泛引用和模仿。野原一家面临的房贷压力、职场困扰、育儿难题等，都引起了观众的强烈共鸣。</p>
+                
+                <p>尽管小新经常调皮捣蛋，但他对家人的爱、对朋友的忠诚，以及在关键时刻表现出的勇气和智慧，使他成为一个深受喜爱的角色。这也是《蜡笔小新》能够经久不衰的重要原因。</p>
+            </div>
+        </section>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>蜡笔小新世界</h3>
+                    <p>探索蜡笔小新的剧情世界</p>
+                    <p>了解背后的故事与经典瞬间</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>剧情导航</h3>
+                    <ul class="footer-links">
+                        <li><a href="#creation">创作背景</a></li>
+                        <li><a href="#timeline">发展历程</a></li>
+                        <li><a href="#movies">经典剧场版</a></li>
+                        <li><a href="#episodes">经典剧集</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>推荐观看</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">战国大合战</a></li>
+                        <li><a href="#">大人帝国的反击</a></li>
+                        <li><a href="#">夕阳下的春日部男孩</a></li>
+                        <li><a href="#">风起云涌的丛林冒险</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>了解更多</h3>
+                    <div class="social-icons">
+                        <a href="#" class="social-icon"><i class="fab fa-imdb"></i></a>
+                        <a href="#" class="social-icon"><i class="fas fa-film"></i></a>
+                        <a href="#" class="social-icon"><i class="fas fa-book-open"></i></a>
+                    </div>
+                    <p class="copyright">
+                        &copy; 2023 蜡笔小新主题网站<br>
+                        剧情资料来源于公开资料整理
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/main.js"></script>
+    <script>
+        // 剧情世界页面专用JavaScript
+        document.addEventListener('DOMContentLoaded', function() {
+            // 时间线动画效果
+            const timelineItems = document.querySelectorAll('.timeline-item');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, { threshold: 0.2 });
+            
+            timelineItems.forEach(item => {
+                item.style.opacity = '0';
+                item.style.transform = 'translateY(30px)';
+                item.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                observer.observe(item);
+            });
+            
+            // 剧场版卡片悬停效果
+            const movieCards = document.querySelectorAll('.movie-card');
+            movieCards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-10px) scale(1.02)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(-10px)';
+                });
+            });
+            
+            // 经典语录轮换
+            const quotes = [
+                {
+                    text: "人生就是这样，有欢笑也有泪水。一部分人主要负责欢笑，另一部分人主要负责泪水。",
+                    author: "野原广志"
+                },
+                {
+                    text: "努力就是一种才能，乌龟努力的话也可以赢过兔子啊！",
+                    author: "野原新之助"
+                },
+                {
+                    text: "梦不会逃走，逃走的一直都是自己。",
+                    author: "野原美伢"
+                },
+                {
+                    text: "弱者不会原谅别人，因为原谅是强者的证明。",
+                    author: "园长先生"
+                }
+            ];
+            
+            let quoteIndex = 0;
+            const quoteText = document.querySelector('.quote-text');
+            const quoteAuthor = document.querySelector('.quote-author');
+            
+            // 每10秒切换一次语录
+            setInterval(() => {
+                quoteIndex = (quoteIndex + 1) % quotes.length;
+                
+                // 淡出效果
+                quoteText.style.opacity = '0';
+                quoteAuthor.style.opacity = '0';
+                
+                setTimeout(() => {
+                    quoteText.textContent = quotes[quoteIndex].text;
+                    quoteAuthor.textContent = quotes[quoteIndex].author;
+                    
+                    // 淡入效果
+                    quoteText.style.opacity = '1';
+                    quoteAuthor.style.opacity = '1';
+                }, 500);
+                
+            }, 10000);
+            
+            // 页脚导航
+            const footerLinks = document.querySelectorAll('.footer-links a');
+            footerLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    if (this.getAttribute('href').startsWith('#')) {
+                        e.preventDefault();
+                        const targetId = this.getAttribute('href').substring(1);
+                        const targetElement = document.getElementById(targetId);
+                        
+                        if (targetElement) {
+                            window.scrollTo({
+                                top: targetElement.offsetTop - 80,
+                                behavior: 'smooth'
+                            });
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

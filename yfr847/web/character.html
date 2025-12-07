@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>蜡笔小新 - 角色介绍</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .characters-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .character-card {
+            background-color: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+        
+        .character-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .character-image {
+            height: 250px;
+            overflow: hidden;
+        }
+        
+        .character-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .character-card:hover .character-image img {
+            transform: scale(1.05);
+        }
+        
+        .character-info {
+            padding: 25px;
+        }
+        
+        .character-info h3 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            font-size: 1.5rem;
+        }
+        
+        .character-role {
+            color: var(--secondary-color);
+            font-weight: 600;
+            margin-bottom: 15px;
+            display: block;
+        }
+        
+        .character-description {
+            color: var(--text-light);
+            line-height: 1.7;
+        }
+        
+        .character-details {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+        }
+        
+        .detail-item {
+            display: flex;
+            margin-bottom: 8px;
+        }
+        
+        .detail-label {
+            font-weight: 600;
+            min-width: 80px;
+            color: var(--dark-color);
+        }
+        
+        .detail-value {
+            color: var(--text-light);
+        }
+        
+        .page-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            padding: 60px 0;
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+        }
+        
+        .page-header h1 {
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+        }
+        
+        .page-header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .character-quote {
+            font-style: italic;
+            color: var(--primary-color);
+            margin-top: 15px;
+            padding-left: 15px;
+            border-left: 3px solid var(--accent-color);
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 (与首页相同，已省略以节省空间) -->
+    <!-- 请从index.html复制导航栏代码到这里 -->
+    
+    <!-- 页面标题区域 -->
+    <header class="page-header">
+        <div class="container">
+            <h1>蜡笔小新角色大全</h1>
+            <p>认识野原一家、春日部防卫队以及所有精彩角色</p>
+        </div>
+    </header>
+    
+    <main class="container">
+        <section class="characters-section">
+            <div class="characters-container">
+                <!-- 野原新之助 -->
+                <div class="character-card">
+                    <div class="character-image">
+                        <img src="../images/characters/shinnosuke.jpg" alt="野原新之助">
+                    </div>
+                    <div class="character-info">
+                        <h3>野原新之助</h3>
+                        <span class="character-role">主角 / 5岁男孩</span>
+                        <p class="character-description">本作主人公，就读于双叶幼儿园向日葵班。性格早熟，喜欢搭讪美女，常说一些令人哭笑不得的话。虽然调皮捣蛋，但心地善良，关键时刻非常可靠。</p>
+                        <div class="character-details">
+                            <div class="detail-item">
+                                <span class="detail-label">年龄:</span>
+                                <span class="detail-value">5岁</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">爱好:</span>
+                                <span class="detail-value">看动感超人、吃小熊饼干</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">口头禅:</span>
+                                <span class="detail-value">"你回来了~"</span>
+                            </div>
+                        </div>
+                        <p class="character-quote">"动感光波！哔哔哔哔哔~"</p>
+                    </div>
+                </div>
+                
+                <!-- 野原美伢 -->
+                <div class="character-card">
+                    <div class="character-image">
+                        <img src="../images/characters/misae.jpg" alt="野原美伢">
+                    </div>
+                    <div class="character-info">
+                        <h3>野原美伢</h3>
+                        <span class="character-role">母亲 / 家庭主妇</span>
+                        <p class="character-description">小新的妈妈，29岁全职家庭主妇。性格急躁，爱唠叨，经常被小新气得火冒三丈。虽然总是抱怨，但非常爱家人，是家庭的支柱。</p>
+                        <div class="character-details">
+                            <div class="detail-item">
+                                <span class="detail-label">年龄:</span>
+                                <span class="detail-value">29岁</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">爱好:</span>
+                                <span class="detail-value">逛街、抢特价商品</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">特点:</span>
+                                <span class="detail-value">爱睡懒觉、怕胖</span>
+                            </div>
+                        </div>
+                        <p class="character-quote">"小新！你又给我捣乱！"</p>
+                    </div>
+                </div>
+                
+                <!-- 野原广志 -->
+                <div class="character-card">
+                    <div class="character-image">
+                        <img src="../images/characters/hiroshi.jpg" alt="野原广志">
+                    </div>
+                    <div class="character-info">
+                        <h3>野原广志</h3>
+                        <span class="character-role">父亲 / 上班族</span>
+                        <p class="character-description">小新的爸爸，35岁上班族。双叶商事营业部课长，有32年房贷和车贷。性格温和，有点好色，最大的特点是脚臭。深爱家人，是家里的经济支柱。</p>
+                        <div class="character-details">
+                            <div class="detail-item">
+                                <span class="detail-label">年龄:</span>
+                                <span class="detail-value">35岁</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">爱好:</span>
+                                <span class="detail-value">喝啤酒、看棒球</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">特点:</span>
+                                <span class="detail-value">脚臭、有房贷</span>
+                            </div>
+                        </div>
+                        <p class="character-quote">"啊~~下班后喝一杯啤酒最舒服了！"</p>
+                    </div>
+                </div>
+                
+                <!-- 野原向日葵 -->
+                <div class="character-card">
+                    <div class="character-image">
+                        <img src="../images/characters/himawari.jpg" alt="野原向日葵">
+                    </div>
+                    <div class="character-info">
+                        <h3>野原向日葵</h3>
+                        <span class="character-role">妹妹 / 婴儿</span>
+                        <p class="character-description">小新的妹妹，昵称小葵。虽然还是婴儿，但已经展现出对亮晶晶的东西（尤其是珠宝）的强烈执着，性格有点像小新，未来可能比小新还让人头疼。</p>
+                        <div class="character-details">
+                            <div class="detail-item">
+                                <span class="detail-label">年龄:</span>
+                                <span class="detail-value">0-1岁</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">爱好:</span>
+                                <span class="detail-value">亮晶晶的东西</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">特点:</span>
+                                <span class="detail-value">看到珠宝就异常激动</span>
+                            </div>
+                        </div>
+                        <p class="character-quote">"啊~亮晶晶！"</p>
+                    </div>
+                </div>
+                
+                <!-- 小白 -->
+                <div class="character-card">
+                    <div class="character-image">
+                        <img src="../images/characters/shiro.jpg" alt="小白">
+                    </div>
+                    <div class="character-info">
+                        <h3>小白</h3>
+                        <span class="character-role">宠物狗</span>
+                        <p class="character-description">野原家养的狗，小名小白。被小新从垃圾堆捡回来。非常聪明，几乎能做所有家务，甚至能买菜、做饭。性格温顺，是家里最靠谱的成员之一。</p>
+                        <div class="character-details">
+                            <div class="detail-item">
+                                <span class="detail-label">品种:</span>
+                                <span class="detail-value">棉花糖（混种）</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">特长:</span>
+                                <span class="detail-value">做家务、买菜</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">特点:</span>
+                                <span class="detail-value">聪明、温顺</span>
+                            </div>
+                        </div>
+                        <p class="character-quote">"汪汪！"</p>
+                    </div>
+                </div>
+                
+                <!-- 风间彻 -->
+                <div class="character-card">
+                    <div class="character-image">
+                        <img src="../images/characters/kazama.jpg" alt="风间彻">
+                    </div>
+                    <div class="character-info">
+                        <h3>风间彻</h3>
+                        <span class="character-role">同学 / 优等生</span>
+                        <p class="character-description">小新的同学，家境优越的优等生。喜欢装成熟，但内心其实是个幼稚的孩子。表面上讨厌小新，实际上很重视这段友谊。有很多补习班，压力很大。</p>
+                        <div class="character-details">
+                            <div class="detail-item">
+                                <span class="detail-label">年龄:</span>
+                                <span class="detail-value">5岁</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">爱好:</span>
+                                <span class="detail-value">学习、英语会话</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">特点:</span>
+                                <span class="detail-value">优等生、有点傲娇</span>
+                            </div>
+                        </div>
+                        <p class="character-quote">"小新！你不要总是这样！"</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="character-groups">
+            <h2 class="section-title">角色分组</h2>
+            <div class="groups-container">
+                <div class="group-card">
+                    <h3><i class="fas fa-home"></i> 野原一家</h3>
+                    <p>小新、美伢、广志、小葵和小白组成的温馨家庭</p>
+                </div>
+                <div class="group-card">
+                    <h3><i class="fas fa-users"></i> 春日部防卫队</h3>
+                    <p>小新、风间、正男、阿呆和妮妮组成的"正义"队伍</p>
+                </div>
+                <div class="group-card">
+                    <h3><i class="fas fa-chalkboard-teacher"></i> 双叶幼儿园</h3>
+                    <p>吉永老师、松坂老师、园长等幼儿园相关角色</p>
+                </div>
+                <div class="group-card">
+                    <h3><i class="fas fa-user-friends"></i> 邻居与朋友</h3>
+                    <p>隔壁大婶、酢乙女爱等周边角色</p>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <!-- 页脚 (与首页相同，已省略以节省空间) -->
+    <!-- 请从index.html复制页脚代码到这里 -->
+    
+    <script src="../js/main.js"></script>
+</body>
+</html>
